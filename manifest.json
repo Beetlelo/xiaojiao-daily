@@ -1,0 +1,38 @@
+{
+  "name": "虾饺每日9选3",
+  "short_name": "虾饺9选3",
+  "description": "每日9道趣味问答，9选3揭晓答案，轻松学点心理学/科学/生活冷知识",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f0eb",
+  "theme_color": "#e8734a",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": [
+    "education",
+    "entertainment"
+  ],
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "scope": "./"
+}
