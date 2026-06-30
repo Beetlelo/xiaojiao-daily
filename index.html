@@ -368,48 +368,34 @@ body.theme-dark .header-hp-name.hp-partner{background:rgba(155,89,182,.2)}
   .btn{padding:14px 4px;font-size:11px}
 }
 
-    /* 隐藏配对/房间功能 */
-    #pairOverlay { display: none !important; }
-    .pair-overlay { display: none !important; }
-    .header-switch { display: none !important; }
-    #cloudStatus { display: none !important; }
-    #headerProfileNames { display: none !important; }
-    
-    /* PWA安装按钮 */
-    .pwa-install-btn {
-      position: fixed;
-      bottom: 80px;
-      right: 16px;
-      z-index: 9998;
-      background: linear-gradient(135deg, #e8734a, #d4526e);
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 10px 18px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(232, 115, 74, 0.4);
-      display: none;
-      align-items: center;
-      gap: 6px;
-      transition: transform 0.2s, box-shadow 0.2s;
-      font-family: inherit;
-    }
-    .pwa-install-btn:active { transform: scale(0.95); }
-    .pwa-install-btn.show { display: flex; }
-    body.theme-dark .pwa-install-btn {
-      box-shadow: 0 4px 20px rgba(232, 115, 74, 0.3);
-    }
-    @media (max-width: 360px) {
-      .pwa-install-btn {
-        bottom: 70px;
-        right: 10px;
-        padding: 8px 14px;
-        font-size: 12px;
-      }
-    }
-    </style>
+    .float-game-btn{position:fixed;bottom:160px;right:16px;z-index:9997;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#6c5ce7,#a29bfe);color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 20px rgba(108,92,231,.4);display:flex;align-items:center;justify-content:center;transition:transform .2s;animation:fpulse 2s ease-in-out infinite}
+    .float-game-btn:active{transform:scale(.9)}
+    @keyframes fpulse{0%,100%{box-shadow:0 4px 20px rgba(108,92,231,.4)}50%{box-shadow:0 4px 30px rgba(108,92,231,.6)}}
+    .games-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10001;display:flex;align-items:center;justify-content:center}
+    .games-modal{background:var(--bg-card);border-radius:22px;padding:24px 18px;width:90%;max-width:360px;max-height:80vh;overflow-y:auto;box-shadow:0 16px 50px rgba(0,0,0,.22)}
+    .games-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .games-header h2{font-size:19px;font-weight:800;color:var(--text-primary);margin:0}
+    .games-close{width:30px;height:30px;border-radius:50%;background:var(--bg-main);border:none;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .games-grid{display:flex;flex-direction:column;gap:10px}
+    .game-card{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg-main);border-radius:14px;cursor:pointer;transition:transform .15s,border-color .2s;border:2px solid transparent}
+    .game-card:active{transform:scale(.97)}
+    .game-icon{font-size:32px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(108,92,231,.08);border-radius:12px;flex-shrink:0}
+    .game-name{font-size:14px;font-weight:700;color:var(--text-primary)}
+    .game-desc{font-size:11px;color:var(--text-muted);margin-top:1px}
+    .game-play-overlay{position:fixed;inset:0;background:var(--bg-main);z-index:10002;display:flex;flex-direction:column}
+    .game-play-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--bg-card);border-bottom:1px solid var(--border-color)}
+    .game-back{color:#6c5ce7;cursor:pointer;font-weight:600;font-size:13px}
+    .game-title{font-size:15px;font-weight:700}
+    .game-score{font-size:13px;font-weight:700;color:#6c5ce7}
+    .game-canvas-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:8px;overflow:hidden}
+    .game-canvas-wrap canvas{border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+    .game-controls{display:flex;flex-direction:column;align-items:center;padding:8px 16px 20px;gap:6px}
+    .ctrl-row{display:flex;gap:6px;justify-content:center}
+    .gcb{width:56px;height:56px;border-radius:50%;border:2px solid var(--border-color);background:var(--bg-card);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none;transition:transform .1s;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+    .gcb:active{transform:scale(.88)}
+    .gcb.wide{width:76px;border-radius:28px;font-size:13px}
+
+  </style>
 </head>
 <body>
 <!-- Header -->
@@ -423,7 +409,8 @@ body.theme-dark .header-hp-name.hp-partner{background:rgba(155,89,182,.2)}
   <div class="header-profile-names" id="headerProfileNames" style="display:none"></div>
   <div class="sub" id="headerSub">挑你感兴趣的问题，揭晓答案吧～</div>
   <div class="streak-badge" id="streakBadge">🔥 连续打卡 <span id="streakNum">0</span> 天</div>
-  
+  <div class="header-switch">
+    <div class="header-refresh" id="hdrRefresh" onclick="headerRefresh()" title="刷新页面">🔄</div>
     <div class="header-switch-btn active" id="hdrSwitchA" onclick="switchUser('A')">🐶</div>
     <div class="header-switch-btn" id="hdrSwitchB" onclick="switchUser('B')">🍑</div>
   </div>
@@ -4885,60 +4872,23 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
-  <!-- PWA安装按钮 -->
-  <button class="pwa-install-btn" id="pwaInstallBtn">
-    <span>📱</span>
-    <span>安装应用</span>
-  </button>
-
-  <script>
-    // PWA 安装提示
-    let deferredPrompt = null;
-    const pwaInstallBtn = document.getElementById('pwaInstallBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      pwaInstallBtn.classList.add('show');
-      console.log('✅ PWA可安装');
-    });
-
-    pwaInstallBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) {
-        showInstallGuide();
-        return;
-      }
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        console.log('✅ 用户接受了安装');
-      }
-      deferredPrompt = null;
-      pwaInstallBtn.classList.remove('show');
-    });
-
-    function showInstallGuide() {
-      const ua = navigator.userAgent;
-      let guide = '';
-      
-      if (/iPad|iPhone|iPod/.test(ua)) {
-        guide = '📱 iPhone/iPad 安装方法：\n\n1. 点击底部中间的「分享」按钮（方框带↑）\n2. 向下滑动，点击「添加到主屏幕」\n3. 点击「添加」';
-      } else if (/Quark|UCBrowser/.test(ua)) {
-        guide = '📱 夸克浏览器安装方法：\n\n方法一（推荐）：\n1. 点击底部「首页」旁边的「工具箱」\n2. 找到「添加到桌面」或「生成桌面图标」\n3. 按提示完成添加\n\n方法二：\n1. 点击右下角「我的」\n2. 进入「设置」→「添加到桌面」\n3. 开启「添加到桌面」功能\n\n提示：如果找不到，可以在网页加载完成后，尝试从浏览器菜单中查找「收藏」或「添加快捷方式」选项';
-      } else if (/Android/.test(ua)) {
-        guide = '📱 安卓Chrome安装方法：\n\n1. 点击浏览器右上角菜单（⋮）\n2. 点击「安装应用」或「添加到主屏幕」\n3. 点击「安装」';
-      } else {
-        guide = '📱 电脑端安装方法：\n\n1. 点击地址栏右侧的安装图标（⊕）\n2. 或点击浏览器菜单 → 「安装」';
-      }
-      alert(guide);
-    }
-
-    window.addEventListener('appinstalled', () => {
-      console.log('✅ PWA已安装');
-      pwaInstallBtn.classList.remove('show');
-      deferredPrompt = null;
-    });
-  </script>
-
+<!-- ===== 小游戏 ===== -->
+<div class="games-overlay" id="gamesOverlay" style="display:none">
+  <div class="games-modal">
+    <div class="games-header"><h2>🎮 小游戏</h2><div class="games-close" onclick="closeGamesModal()">✕</div></div>
+    <div class="games-grid">
+      <div class="game-card" onclick="openGame('snake')"><div class="game-icon">🐍</div><div><div class="game-name">贪吃蛇</div><div class="game-desc">经典贪吃蛇，吃到食物变长</div></div></div>
+      <div class="game-card" onclick="openGame('tetris')"><div class="game-icon">🧱</div><div><div class="game-name">俄罗斯方块</div><div class="game-desc">消除满行，挑战高分</div></div></div>
+      <div class="game-card" onclick="openGame('huarong')"><div class="game-icon">🏯</div><div><div class="game-name">华容道</div><div class="game-desc">移动方块，帮曹操逃脱</div></div></div>
+    </div>
+  </div>
+</div>
+<div class="game-play-overlay" id="gamePlayOverlay" style="display:none">
+  <div class="game-play-header"><div class="game-back" onclick="closeGame()">← 返回</div><div class="game-title" id="gamePlayTitle">游戏</div><div class="game-score" id="gamePlayScore">得分: 0</div></div>
+  <div class="game-canvas-wrap"><canvas id="gameCanvas"></canvas></div>
+  <div class="game-controls" id="gameControls"></div>
+</div>
+<div class="float-game-btn" id="floatGameBtn" onclick="showGamesModal()" title="小游戏">🎮</div>
+<script src="games.js"></script>
 </body>
 </html>
