@@ -1,7 +1,7 @@
 // Service Worker for 虾饺每日9选3 PWA
 // 离线缓存策略：缓存优先，兼容GitHub Pages相对路径
 
-const CACHE_NAME = 'xiaojiao-daily-v3';
+const CACHE_NAME = 'xiaojiao-daily-v4';
 const urlsToCache = [
   './',
   './index.html',
